@@ -140,9 +140,21 @@
 
 -(void)offlinePackDidReceiveError:(NSNotification*)notification{
     
+    MGLOfflinePack* offlinepack = notification.object;
+    NSDictionary* userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:offlinepack.context];
+    NSError* error = notification.userInfo[MGLOfflinePackErrorUserInfoKey];
+    
+    NSLog(@"Error in pack %@ with description : %@",userInfo[@"activeUser"], error.localizedFailureReason);
+    
 }
 
 -(void)offlinePackDidReceiveMaximumAllowedMapboxTiles:(NSNotification*)notification{
+    MGLOfflinePack* offlinePack = notification.object;
+    NSDictionary* userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:offlinePack.context];
+    
+    uint64_t maximumCount = [notification.userInfo[MGLOfflinePackMaximumCountUserInfoKey] unsignedLongLongValue];
+    
+    NSLog(@"Error in pack %@ reached limit of %llu tiles.",userInfo[@"activeUser"], maximumCount);
     
 }
 
