@@ -100,8 +100,26 @@
         else{
             [pack resume];
         }
-        
     }];
+    NSArray* packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+    NSLog(@"pack list : %@",packs);
+}
+
+- (void)removeOfflineDate{
+    NSArray* packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+    if([packs count]){
+        [[MGLOfflineStorage sharedOfflineStorage] removePack:packs[0] withCompletionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Error while removing pack %@ with description : %@",packs[0], error.localizedFailureReason);
+            }
+            else{
+                NSLog(@"Pack %@ removed successfully  and pack list is %ld",packs[0], [packs count]);
+            }
+        }];
+    }
+    else{
+        NSLog(@"No packs availabe");
+    }
 }
 
 #pragma mark - MGLOfflinePack notification handlers
@@ -117,7 +135,7 @@
     uint64_t expectedResources = offlinePackProgress.countOfResourcesExpected;
     
     //calculate progess percentage
-    float progressPercentage = completedResources / expectedResources;
+    float progressPercentage = (float)completedResources/expectedResources;
     
     if (!self.progressView) {
         self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
@@ -134,7 +152,7 @@
         NSLog(@"Offline Pack %@ : completed %@, %llu resource", userInfo[@"activeUser"], byteCount, completedResources);
     }
     else{
-        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %f",userInfo[@"activeUser"], completedResources, expectedResources, progressPercentage * 100);
+        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %.2f%%.",userInfo[@"activeUser"], completedResources, expectedResources, progressPercentage * 100);
     }
 }
 
