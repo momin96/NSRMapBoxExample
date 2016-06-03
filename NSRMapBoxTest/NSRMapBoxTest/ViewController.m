@@ -26,7 +26,8 @@
     MGLPointAnnotation* point = [[MGLPointAnnotation alloc] init];
     point.coordinate = CLLocationCoordinate2DMake(12.937548,77.5790818);
     point.title = @"created";
-    [annotationList addObject:point];
+    point.subtitle = @"My room";
+    [self.mapView addAnnotation:point];
     
     
     MGLPointAnnotation* secondPoint = [[MGLPointAnnotation alloc] init];
@@ -43,8 +44,9 @@
     fourthPoint.coordinate = CLLocationCoordinate2DMake(52.255635, 6.160071);
     fourthPoint.title = @"completed";
     [annotationList addObject:fourthPoint];
-    //    [CRLoadingView loadingViewInView:self.mapView Title:@"Loading"];
-    
+        [CRLoadingView loadingViewInView:self.mapView Title:@"Loading"];
+    //    MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(52.257070, 6.160704),
+    //                                                         CLLocationCoordinate2DMake(52.255635,6.160071));
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(12.931009593713711, 77.572613561808339),
                                                          CLLocationCoordinate2DMake(12.946548255058971,77.581581762621909));
     [self.mapView setVisibleCoordinateBounds:bounds];
@@ -70,6 +72,12 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    NSArray* packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
+    if([packs count]){
+        MGLOfflinePack* offlinePack = [packs lastObject];
+        MGLOfflinePackProgress offlinePackProgress = offlinePack.progress;
+        
+    }
 }
 
 #pragma mark -- Helper Method
@@ -82,6 +90,8 @@
                                             toCoordinateFromView:self.mapView];
     
     NSLog(@"You tapped at: %f, %f", location.latitude, location.longitude);
+    NSString* coordinate = [NSString stringWithFormat:@"%.4f, %.4f", location.latitude, location.longitude];
+    self.title = coordinate;
     
 }
 -(void)registerNotification{
@@ -184,17 +194,19 @@
     if (!self.progressView) {
         self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         CGSize frame = self.view.bounds.size;
-        self.progressView.frame = CGRectMake(frame.width / 4, frame.height * 0.75, frame.width / 2, 10);
+        self.progressView.frame = CGRectMake(frame.width / 4, frame.height * 0.75, frame.width / 2, 40);
         [self.view addSubview:self.progressView];
     }
     [self.progressView setProgress:progressPercentage animated:YES];
     
     // If this pack has finished, print its size and resource count.
     if(completedResources == expectedResources){
-        NSString* byteCount = [NSByteCountFormatter stringFromByteCount:offlinePackProgress.countOfBytesCompleted countStyle:NSByteCountFormatterCountStyleMemory];
+        //        uint64_t currentTitleCount = [notification.userInfo[MGLOfflinePackProgressUserInfoKey] unsignedLongLongValue];
         
+        NSString* byteCount = [NSByteCountFormatter stringFromByteCount:offlinePackProgress.countOfBytesCompleted countStyle:NSByteCountFormatterCountStyleMemory];
         NSLog(@"Offline Pack %@ : completed %@, %llu resource", offlinePack, byteCount, completedResources);
         [self.progressView removeFromSuperview];
+        self.progressView  = nil;
         
         NSString* title = [NSString stringWithFormat:@"Offline Pack %@ ",offlinePack];
         NSString* message = [NSString stringWithFormat:@"Completed downloading with size %@, and total %llu resources",byteCount,completedResources];
@@ -205,10 +217,10 @@
         UIAlertAction* action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
         
         [alert addAction:action];
-        
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else{
-        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %.2f%%.",offlinePack, completedResources, expectedResources, progressPercentage * 100);
+        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %.2f%%. ",offlinePack, completedResources, expectedResources, progressPercentage * 100);
     }
 }
 
@@ -229,7 +241,15 @@
     uint64_t maximumCount = [notification.userInfo[MGLOfflinePackMaximumCountUserInfoKey] unsignedLongLongValue];
     
     NSLog(@"Error in pack %@ reached limit of %llu tiles.",userInfo[@"activeUser"], maximumCount);
+    NSString* message = [NSString stringWithFormat:@"Error in pack %@ reached limit of %llu tiles.",offlinePack, maximumCount];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
+    UIAlertAction* action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    
+    [alert addAction:action];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark -- MGLMapView Delegate Methods
