@@ -32,9 +32,17 @@
     MGLPointAnnotation* secondPoint = [[MGLPointAnnotation alloc] init];
     secondPoint.coordinate = CLLocationCoordinate2DMake(12.9402157, 77.5757746);
     secondPoint.title = @"started";
-    
     [annotationList addObject:secondPoint];
     
+    MGLPointAnnotation* thirdPoint = [[MGLPointAnnotation alloc] init];
+    thirdPoint.coordinate = CLLocationCoordinate2DMake(52.257070, 6.160704);
+    thirdPoint.title = @"completed";
+    [annotationList addObject:thirdPoint];
+    
+    MGLPointAnnotation* fourthPoint = [[MGLPointAnnotation alloc] init];
+    fourthPoint.coordinate = CLLocationCoordinate2DMake(52.255635, 6.160071);
+    fourthPoint.title = @"completed";
+    [annotationList addObject:fourthPoint];
     //    [CRLoadingView loadingViewInView:self.mapView Title:@"Loading"];
     
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(12.931009593713711, 77.572613561808339),
@@ -45,12 +53,18 @@
     UITapGestureRecognizer* tapToCreateNewTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNewTicket:)];
     [self.mapView addGestureRecognizer:tapToCreateNewTicket];
     
-    UIBarButtonItem* offlineButton = [[UIBarButtonItem alloc] initWithTitle:@"Download Offline Data"
-                                                                      style:UIBarButtonItemStylePlain
-                                                                     target:self
-                                                                     action:@selector(downloadDataForOfflineUsage)];
+    UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Download Offline Data"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(downloadDataForOfflineUsage)];
     
-    self.navigationItem.rightBarButtonItem = offlineButton;
+    
+    UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Remove Offline Data"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(removeOfflineDate)];
+    
+    self.navigationItem.rightBarButtonItems = @[donwloadOfflinedData, removedOfflinedData];
     
 }
 
@@ -82,7 +96,7 @@
     
     // Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
     // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
-    id <MGLOfflineRegion> offlineRigion = [[MGLTilePyramidOfflineRegion alloc] initWithStyleURL:self.mapView.styleURL bounds:self.mapView.visibleCoordinateBounds fromZoomLevel:self.mapView.zoomLevel toZoomLevel:16];
+    id <MGLOfflineRegion> offlineRigion = [[MGLTilePyramidOfflineRegion alloc] initWithStyleURL:self.mapView.styleURL bounds:self.mapView.visibleCoordinateBounds fromZoomLevel:self.mapView.zoomLevel toZoomLevel:18];
     
     // Store some data for identification purposes alongside the downloaded resources.
     NSDictionary* userInfo = @{@"activeUser" : @"nasir.ahmed@mobinius.com"};
@@ -108,17 +122,47 @@
 - (void)removeOfflineDate{
     NSArray* packs = [[MGLOfflineStorage sharedOfflineStorage] packs];
     if([packs count]){
-        [[MGLOfflineStorage sharedOfflineStorage] removePack:packs[0] withCompletionHandler:^(NSError * _Nullable error) {
+        [[MGLOfflineStorage sharedOfflineStorage] removePack:[packs lastObject] withCompletionHandler:^(NSError * _Nullable error) {
             if (error) {
-                NSLog(@"Error while removing pack %@ with description : %@",packs[0], error.localizedFailureReason);
+                NSLog(@"Error while removing pack %@ with description : %@",[packs lastObject], error.localizedFailureReason);
             }
             else{
-                NSLog(@"Pack %@ removed successfully  and pack list is %ld",packs[0], [packs count]);
+                MGLOfflinePack* offlinePack = [packs lastObject];
+                MGLOfflinePackProgress offlinePackProgress = offlinePack.progress;
+                uint64_t completedResources = offlinePackProgress.countOfResourcesCompleted;
+                //                uint64_t expectedResources = offlinePackProgress.countOfResourcesExpected;
+                
+                NSString* byteCount = [NSByteCountFormatter stringFromByteCount:offlinePackProgress.countOfBytesCompleted countStyle:NSByteCountFormatterCountStyleMemory];
+                
+                NSLog(@"Offline Pack %@ : completed %@, %llu resource", offlinePack, byteCount, completedResources);
+                
+                NSLog(@"Pack %@ removed successfully  and pack list is %@",offlinePack, packs);
+                
+                NSString* title = [NSString stringWithFormat:@"Offline Pack %@ ",offlinePack];
+                NSString* message = [NSString stringWithFormat:@"successfully removed data of size %@, and total %llu resources",byteCount,completedResources];
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
+                                                                               message:message
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* action = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:nil];
+                
+                [alert addAction:action];
+                
+                [self presentViewController:alert animated:YES completion:nil];
             }
         }];
     }
     else{
         NSLog(@"No packs availabe");
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"No packs availabe"
+                                                                       message:@""
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* action = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alert addAction:action];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -149,10 +193,22 @@
     if(completedResources == expectedResources){
         NSString* byteCount = [NSByteCountFormatter stringFromByteCount:offlinePackProgress.countOfBytesCompleted countStyle:NSByteCountFormatterCountStyleMemory];
         
-        NSLog(@"Offline Pack %@ : completed %@, %llu resource", userInfo[@"activeUser"], byteCount, completedResources);
+        NSLog(@"Offline Pack %@ : completed %@, %llu resource", offlinePack, byteCount, completedResources);
+        [self.progressView removeFromSuperview];
+        
+        NSString* title = [NSString stringWithFormat:@"Offline Pack %@ ",offlinePack];
+        NSString* message = [NSString stringWithFormat:@"Completed downloading with size %@, and total %llu resources",byteCount,completedResources];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alert addAction:action];
+        
     }
     else{
-        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %.2f%%.",userInfo[@"activeUser"], completedResources, expectedResources, progressPercentage * 100);
+        NSLog(@"Offline Pack %@ : remains %llu resources out of %llu : Percentage : %.2f%%.",offlinePack, completedResources, expectedResources, progressPercentage * 100);
     }
 }
 
@@ -209,6 +265,13 @@
         MGLAnnotationImage* customAnnotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"started"];
         
         customAnnotationImage = [MGLAnnotationImage annotationImageWithImage:[UIImage imageNamed:@"started"] reuseIdentifier:@"started"];
+        
+        return customAnnotationImage;
+    }
+    else if ([annotation.title isEqualToString:@"completed"]){
+        MGLAnnotationImage* customAnnotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"completed"];
+        
+        customAnnotationImage = [MGLAnnotationImage annotationImageWithImage:[UIImage imageNamed:@"completed"] reuseIdentifier:@"completed"];
         
         return customAnnotationImage;
     }
