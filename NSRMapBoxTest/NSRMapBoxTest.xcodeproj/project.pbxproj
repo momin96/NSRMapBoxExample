@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5009E95B1CF823A5008CBB0E /* CRLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009E95A1CF823A5008CBB0E /* CRLoadingView.m */; };
 		5009E95E1CF87112008CBB0E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009E95D1CF87112008CBB0E /* InitialViewController.m */; };
+		50A443BF1D055EC400523FD0 /* GMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A443BE1D055EC400523FD0 /* GMapViewController.m */; };
 		50D8316C1CF5C5440050DD42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D8316B1CF5C5440050DD42 /* main.m */; };
 		50D8316F1CF5C5440050DD42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D8316E1CF5C5440050DD42 /* AppDelegate.m */; };
 		50D831721CF5C5440050DD42 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D831711CF5C5440050DD42 /* ViewController.m */; };
@@ -19,6 +20,7 @@
 		50D831901CF5C5440050DD42 /* NSRMapBoxTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D8318F1CF5C5440050DD42 /* NSRMapBoxTestUITests.m */; };
 		50D831A91CF5CE5B0050DD42 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D831A81CF5CE5B0050DD42 /* Mapbox.framework */; };
 		50D831AA1CF5CE5B0050DD42 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50D831A81CF5CE5B0050DD42 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		714CE2335B00D67D2E8CC048 /* libPods-NSRMapBoxTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD09CB5B7DF7F676D5DB9C4 /* libPods-NSRMapBoxTest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		5009E95A1CF823A5008CBB0E /* CRLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRLoadingView.m; sourceTree = "<group>"; };
 		5009E95C1CF87112008CBB0E /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		5009E95D1CF87112008CBB0E /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		50A443BD1D055EC400523FD0 /* GMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMapViewController.h; sourceTree = "<group>"; };
+		50A443BE1D055EC400523FD0 /* GMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMapViewController.m; sourceTree = "<group>"; };
 		50D831671CF5C5430050DD42 /* NSRMapBoxTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSRMapBoxTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D8316B1CF5C5440050DD42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		50D8316D1CF5C5440050DD42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +78,9 @@
 		50D8318F1CF5C5440050DD42 /* NSRMapBoxTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSRMapBoxTestUITests.m; sourceTree = "<group>"; };
 		50D831911CF5C5440050DD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50D831A81CF5CE5B0050DD42 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		7F9337E524BD3C1D73F62AAE /* Pods-NSRMapBoxTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NSRMapBoxTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-NSRMapBoxTest/Pods-NSRMapBoxTest.release.xcconfig"; sourceTree = "<group>"; };
+		9C40F6A997AEAB2393F6C257 /* Pods-NSRMapBoxTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NSRMapBoxTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NSRMapBoxTest/Pods-NSRMapBoxTest.debug.xcconfig"; sourceTree = "<group>"; };
+		BDD09CB5B7DF7F676D5DB9C4 /* libPods-NSRMapBoxTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NSRMapBoxTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50D831A91CF5CE5B0050DD42 /* Mapbox.framework in Frameworks */,
+				714CE2335B00D67D2E8CC048 /* libPods-NSRMapBoxTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +127,8 @@
 				50D831831CF5C5440050DD42 /* NSRMapBoxTestTests */,
 				50D8318E1CF5C5440050DD42 /* NSRMapBoxTestUITests */,
 				50D831681CF5C5430050DD42 /* Products */,
+				9382602329F4CD5803230A27 /* Pods */,
+				5BADABB6550889D9768F2BC7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +151,8 @@
 				50D831711CF5C5440050DD42 /* ViewController.m */,
 				5009E95C1CF87112008CBB0E /* InitialViewController.h */,
 				5009E95D1CF87112008CBB0E /* InitialViewController.m */,
+				50A443BD1D055EC400523FD0 /* GMapViewController.h */,
+				50A443BE1D055EC400523FD0 /* GMapViewController.m */,
 				50D831731CF5C5440050DD42 /* Main.storyboard */,
 				50D831761CF5C5440050DD42 /* Assets.xcassets */,
 				50D831781CF5C5440050DD42 /* LaunchScreen.storyboard */,
@@ -177,6 +189,23 @@
 			path = NSRMapBoxTestUITests;
 			sourceTree = "<group>";
 		};
+		5BADABB6550889D9768F2BC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDD09CB5B7DF7F676D5DB9C4 /* libPods-NSRMapBoxTest.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9382602329F4CD5803230A27 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C40F6A997AEAB2393F6C257 /* Pods-NSRMapBoxTest.debug.xcconfig */,
+				7F9337E524BD3C1D73F62AAE /* Pods-NSRMapBoxTest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -184,10 +213,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50D831941CF5C5440050DD42 /* Build configuration list for PBXNativeTarget "NSRMapBoxTest" */;
 			buildPhases = (
+				2C3FCE66806A55365DC1EA2B /* [CP] Check Pods Manifest.lock */,
 				50D831631CF5C5430050DD42 /* Sources */,
 				50D831641CF5C5430050DD42 /* Frameworks */,
 				50D831651CF5C5430050DD42 /* Resources */,
 				50D831A71CF5CE020050DD42 /* Embed Frameworks */,
+				D46D1A1549CD467CE634FAEE /* [CP] Embed Pods Frameworks */,
+				E06C8D2E79359D9FAEAE7490 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -304,6 +336,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2C3FCE66806A55365DC1EA2B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D46D1A1549CD467CE634FAEE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NSRMapBoxTest/Pods-NSRMapBoxTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E06C8D2E79359D9FAEAE7490 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NSRMapBoxTest/Pods-NSRMapBoxTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		50D831631CF5C5430050DD42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -314,6 +394,7 @@
 				50D831721CF5C5440050DD42 /* ViewController.m in Sources */,
 				50D8316F1CF5C5440050DD42 /* AppDelegate.m in Sources */,
 				50D8316C1CF5C5440050DD42 /* main.m in Sources */,
+				50A443BF1D055EC400523FD0 /* GMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,9 +533,11 @@
 		};
 		50D831951CF5C5440050DD42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C40F6A997AEAB2393F6C257 /* Pods-NSRMapBoxTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -469,9 +552,11 @@
 		};
 		50D831961CF5C5440050DD42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F9337E524BD3C1D73F62AAE /* Pods-NSRMapBoxTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

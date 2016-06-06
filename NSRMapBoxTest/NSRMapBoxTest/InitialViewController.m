@@ -8,6 +8,7 @@
 
 #import "InitialViewController.h"
 #import "ViewController.h"
+#import "GMapViewController.h"
 @interface InitialViewController ()
 
 @end
@@ -28,6 +29,11 @@
     ViewController* mapBoxVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
     
     [self.navigationController pushViewController:mapBoxVC animated:YES];
+}
+- (IBAction)navigateToGMapViewController:(UIButton *)sender {
+    GMapViewController* gMapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GMapViewController"];
+    
+    [self.navigationController pushViewController:gMapVC animated:YES];
 }
 
 @end

@@ -24,18 +24,53 @@
                                     <action selector="navigateToMapBoxViewController:" destination="cpv-ro-k5N" eventType="touchUpInside" id="k2I-jE-cwI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Zu-zq-wtu">
+                                <rect key="frame" x="187" y="373" width="226" height="30"/>
+                                <state key="normal" title="Navigate To GMapViewController"/>
+                                <connections>
+                                    <action selector="navigateToGMapViewController:" destination="cpv-ro-k5N" eventType="touchUpInside" id="LcF-bf-vZr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6Zu-zq-wtu" firstAttribute="centerY" secondItem="T1b-IA-kCk" secondAttribute="centerY" id="7N9-I9-WCj"/>
                             <constraint firstItem="T1b-IA-kCk" firstAttribute="centerY" secondItem="pdA-0H-BAb" secondAttribute="centerY" id="Noc-vc-XyX"/>
+                            <constraint firstItem="6Zu-zq-wtu" firstAttribute="centerX" secondItem="T1b-IA-kCk" secondAttribute="centerX" id="RpB-Ke-MnS"/>
+                            <constraint firstItem="6Zu-zq-wtu" firstAttribute="top" secondItem="T1b-IA-kCk" secondAttribute="bottom" constant="58" id="S7u-I7-d8k"/>
                             <constraint firstItem="T1b-IA-kCk" firstAttribute="centerX" secondItem="pdA-0H-BAb" secondAttribute="centerX" id="V2V-Bc-iCV"/>
+                            <constraint firstItem="6Zu-zq-wtu" firstAttribute="top" secondItem="T1b-IA-kCk" secondAttribute="bottom" constant="58" id="mb7-VD-MaO"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7N9-I9-WCj"/>
+                                <exclude reference="mb7-VD-MaO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="tEK-5e-Jer"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIA-O8-AWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="941" y="129"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="bDH-CL-vUf">
+            <objects>
+                <viewController storyboardIdentifier="GMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gYA-An-APb" customClass="GMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cyI-a8-BjR"/>
+                        <viewControllerLayoutGuide type="bottom" id="VsF-E6-g55"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MzZ-Tq-mNd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="139-Bc-qTz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1693" y="839"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="tne-QT-ifu">
