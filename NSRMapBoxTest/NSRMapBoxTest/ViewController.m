@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    self.mapView.rotateEnabled = NO;
     NSMutableArray *annotationList = [NSMutableArray new];
     
     MGLPointAnnotation* point = [[MGLPointAnnotation alloc] init];
@@ -44,7 +44,7 @@
     fourthPoint.coordinate = CLLocationCoordinate2DMake(52.255635, 6.160071);
     fourthPoint.title = @"completed";
     [annotationList addObject:fourthPoint];
-        [CRLoadingView loadingViewInView:self.mapView Title:@"Loading"];
+    [CRLoadingView loadingViewInView:self.mapView Title:@"Loading"];
     //    MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(52.257070, 6.160704),
     //                                                         CLLocationCoordinate2DMake(52.255635,6.160071));
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(12.931009593713711, 77.572613561808339),
@@ -55,18 +55,29 @@
     UITapGestureRecognizer* tapToCreateNewTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNewTicket:)];
     [self.mapView addGestureRecognizer:tapToCreateNewTicket];
     
-    UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Download Offline Data"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(downloadDataForOfflineUsage)];
+    //    UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Download Offline Data"
+    //                                                                             style:UIBarButtonItemStylePlain
+    //                                                                            target:self
+    //                                                                            action:@selector(downloadDataForOfflineUsage)];
     
+    UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                                                          target:self
+                                                                                          action:@selector(downloadDataForOfflineUsage)];
     
-    UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Remove Offline Data"
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(removeOfflineDate)];
+    //    UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Remove Offline Data"
+    //                                                                            style:UIBarButtonItemStylePlain
+    //                                                                           target:self
+    //                                                                           action:@selector(removeOfflineDate)];
+    UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                                                                         target:self
+                                                                                         action:@selector(removeOfflineDate)];
     
-    self.navigationItem.rightBarButtonItems = @[donwloadOfflinedData, removedOfflinedData];
+    UIBarButtonItem* myLocation = [[UIBarButtonItem alloc] initWithTitle:@"My Location"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(findMyLocation)];
+    
+    self.navigationItem.rightBarButtonItems = @[donwloadOfflinedData, removedOfflinedData, myLocation];
     
 }
 
@@ -174,6 +185,19 @@
         
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+-(void)findMyLocation{
+    self.mapView.showsUserLocation = YES;
+    [self.mapView setUserTrackingMode:MGLUserTrackingModeFollow animated:YES];
+    MGLUserLocation* userLocation = self.mapView.userLocation;
+    userLocation.isUpdating;
+    CLLocationCoordinate2D currentCoordinate =  userLocation.location.coordinate;
+    
+    NSLog(@"longitude : %f latitude : %f",currentCoordinate.longitude, currentCoordinate.latitude );
+    NSString* coordinate = [NSString stringWithFormat:@"%f, %f", currentCoordinate.latitude, currentCoordinate.longitude];
+    self.title = coordinate;
+    
 }
 
 #pragma mark - MGLOfflinePack notification handlers
