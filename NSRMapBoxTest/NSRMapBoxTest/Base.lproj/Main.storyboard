@@ -54,28 +54,34 @@
             </objects>
             <point key="canvasLocation" x="941" y="129"/>
         </scene>
-        <!--Map View Controller-->
+        <!--GMapViewController-->
         <scene sceneID="bDH-CL-vUf">
             <objects>
-                <viewController storyboardIdentifier="GMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gYA-An-APb" customClass="GMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gYA-An-APb" userLabel="GMapViewController" customClass="GMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cyI-a8-BjR"/>
                         <viewControllerLayoutGuide type="bottom" id="VsF-E6-g55"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MzZ-Tq-mNd">
+                    <view key="view" contentMode="scaleToFill" id="MzZ-Tq-mNd" customClass="GMSMapView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="delegate" destination="gYA-An-APb" id="WfJ-6J-cyx"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="MzZ-Tq-mNd" id="3dM-HM-p7R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="139-Bc-qTz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1693" y="839"/>
         </scene>
-        <!--Delegate-->
+        <!--MapboxViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="MapboxViewController" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
