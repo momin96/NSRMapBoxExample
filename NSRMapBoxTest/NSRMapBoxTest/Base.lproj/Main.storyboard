@@ -89,13 +89,31 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MGLMapView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="zJ5-Rz-izg">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="c76-5z-69k"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="gVk-yL-OnR"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zJ5-Rz-izg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="08E-TI-E8L"/>
+                            <constraint firstItem="zJ5-Rz-izg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wHp-WG-Yol"/>
+                            <constraint firstAttribute="trailing" secondItem="zJ5-Rz-izg" secondAttribute="trailing" id="yar-yE-LTt"/>
+                        </constraints>
                         <connections>
                             <outlet property="delegate" destination="BYZ-38-t0r" id="don-DA-Ny1"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="8bC-Xf-vdC" id="TrK-P5-6CS"/>
+                        <outlet property="searchBar" destination="zJ5-Rz-izg" id="e3r-Tq-qkl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

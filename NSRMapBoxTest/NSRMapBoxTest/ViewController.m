@@ -9,8 +9,10 @@
 #import "ViewController.h"
 #import "CRLoadingView.h"
 @import Mapbox;
-@interface ViewController ()
+@interface ViewController () <UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet MGLMapView *mapView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @property (nonatomic) UIProgressView *progressView;
 
 @end
@@ -92,6 +94,59 @@
 }
 
 #pragma mark -- Helper Method
+
+-(void)startSearchItem:(NSString*)searchItem{
+    [self makeSearchForItem:searchItem completionHandler:^(NSDictionary* response, BOOL success, NSError *error) {
+        [CRLoadingView removeView];
+        if(!success && error){
+            NSLog(@"Something went wrong");
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Something went wrong"
+                                                                           message:@"Check With Internet"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:action];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        else if(success && response){
+            
+        }
+        else{
+            NSLog(@"Search Not Found");
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Search Not Found"
+                                                                           message:@"Try Something Different"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:action];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
+    }];
+}
+
+-(void)makeSearchForItem:(NSString*)item completionHandler:(void(^)(NSDictionary* response, BOOL success, NSError* error))completionHandler{
+    NSString* escappedString = [item stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    
+    NSString* urlString = [NSString stringWithFormat:@"https://api.mapbox.com/geocoding/v5/mapbox.places/%@.json?autocomplete=true&access_token=pk.eyJ1IjoibW9taW45NiIsImEiOiJjaW9tc29odjYwMDRqdHhtNGQxbnZ4YzJyIn0.-Vfdy_2vk1kohKHNgve41w",escappedString];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+    [urlRequest setHTTPMethod:@"GET"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if(connectionError){
+            completionHandler(nil, NO, connectionError);
+        }
+        else if(data){
+            NSMutableDictionary* responseData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            completionHandler(responseData, YES, nil);
+        }
+        else{
+            completionHandler(nil, YES, nil);
+        }
+    }];
+}
 
 -(void)createNewTicket:(UITapGestureRecognizer*)tapGesture{
     
@@ -329,8 +384,18 @@
     
 }
 
+#pragma mark UISearchBarDelegate
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    [self startSearchItem:searchBar.text];
+    NSString* message = [NSString stringWithFormat:@"Searching... %@",searchBar.text];
+    [CRLoadingView loadingViewInView:self.mapView Title:message];
+}
 
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar;{
+    return YES;
+}
 
 
 
