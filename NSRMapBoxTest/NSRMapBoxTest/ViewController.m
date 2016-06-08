@@ -397,6 +397,9 @@
     return YES;
 }
 
-
-
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+    
+}
 @end
