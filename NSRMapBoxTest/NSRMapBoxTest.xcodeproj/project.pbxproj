@@ -10,6 +10,7 @@
 		5009E95B1CF823A5008CBB0E /* CRLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009E95A1CF823A5008CBB0E /* CRLoadingView.m */; };
 		5009E95E1CF87112008CBB0E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009E95D1CF87112008CBB0E /* InitialViewController.m */; };
 		50A443BF1D055EC400523FD0 /* GMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A443BE1D055EC400523FD0 /* GMapViewController.m */; };
+		50C9447F1D0EAF9500582984 /* CustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C9447E1D0EAF9500582984 /* CustomCalloutView.m */; };
 		50D8316C1CF5C5440050DD42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D8316B1CF5C5440050DD42 /* main.m */; };
 		50D8316F1CF5C5440050DD42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D8316E1CF5C5440050DD42 /* AppDelegate.m */; };
 		50D831721CF5C5440050DD42 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D831711CF5C5440050DD42 /* ViewController.m */; };
@@ -61,6 +62,8 @@
 		5009E95D1CF87112008CBB0E /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		50A443BD1D055EC400523FD0 /* GMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMapViewController.h; sourceTree = "<group>"; };
 		50A443BE1D055EC400523FD0 /* GMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMapViewController.m; sourceTree = "<group>"; };
+		50C9447D1D0EAF9500582984 /* CustomCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCalloutView.h; sourceTree = "<group>"; };
+		50C9447E1D0EAF9500582984 /* CustomCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCalloutView.m; sourceTree = "<group>"; };
 		50D831671CF5C5430050DD42 /* NSRMapBoxTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSRMapBoxTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D8316B1CF5C5440050DD42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		50D8316D1CF5C5440050DD42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				50D8316E1CF5C5440050DD42 /* AppDelegate.m */,
 				50D831701CF5C5440050DD42 /* ViewController.h */,
 				50D831711CF5C5440050DD42 /* ViewController.m */,
+				50C9447D1D0EAF9500582984 /* CustomCalloutView.h */,
+				50C9447E1D0EAF9500582984 /* CustomCalloutView.m */,
 				5009E95C1CF87112008CBB0E /* InitialViewController.h */,
 				5009E95D1CF87112008CBB0E /* InitialViewController.m */,
 				50A443BD1D055EC400523FD0 /* GMapViewController.h */,
@@ -390,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5009E95E1CF87112008CBB0E /* InitialViewController.m in Sources */,
+				50C9447F1D0EAF9500582984 /* CustomCalloutView.m in Sources */,
 				5009E95B1CF823A5008CBB0E /* CRLoadingView.m in Sources */,
 				50D831721CF5C5440050DD42 /* ViewController.m in Sources */,
 				50D8316F1CF5C5440050DD42 /* AppDelegate.m in Sources */,

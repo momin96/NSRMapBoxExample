@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "CRLoadingView.h"
+#import "CustomCalloutView.h"
+
 @import Mapbox;
 @interface ViewController () <UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet MGLMapView *mapView;
@@ -54,22 +56,14 @@
     [self.mapView setVisibleCoordinateBounds:bounds];
     [self.mapView addAnnotations:annotationList];
     
-    UITapGestureRecognizer* tapToCreateNewTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNewTicket:)];
-    [self.mapView addGestureRecognizer:tapToCreateNewTicket];
+    //    UITapGestureRecognizer* tapToCreateNewTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNewTicket:)];
+    //    [self.mapView addGestureRecognizer:tapToCreateNewTicket];
     
-    //    UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Download Offline Data"
-    //                                                                             style:UIBarButtonItemStylePlain
-    //                                                                            target:self
-    //                                                                            action:@selector(downloadDataForOfflineUsage)];
     
     UIBarButtonItem* donwloadOfflinedData = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                                                           target:self
                                                                                           action:@selector(downloadDataForOfflineUsage)];
     
-    //    UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithTitle:@"Remove Offline Data"
-    //                                                                            style:UIBarButtonItemStylePlain
-    //                                                                           target:self
-    //                                                                           action:@selector(removeOfflineDate)];
     UIBarButtonItem* removedOfflinedData = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                                                                          target:self
                                                                                          action:@selector(removeOfflineDate)];
@@ -336,7 +330,19 @@
     // Always try to show a callout when an annotation is tapped.
     return YES;
 }
-
+- (UIView<MGLCalloutView> *)mapView:(__unused MGLMapView *)mapView calloutViewForAnnotation:(id<MGLAnnotation>)annotation
+{
+    // Only show callouts for `Hello world!` annotation
+    if ([annotation respondsToSelector:@selector(title)]
+        && [annotation.title isEqualToString:@"created"])
+    {
+        // Instantiate and return our custom callout view
+        CustomCalloutView *calloutView = [[CustomCalloutView alloc] init];
+        calloutView.representedObject = annotation;
+        return calloutView;
+    }
+    return nil;
+}
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView{
     //    [mapView setCenterCoordinate:CLLocationCoordinate2DMake(12.937548,77.5790818) zoomLevel:13 animated:YES];
     [CRLoadingView removeView];
